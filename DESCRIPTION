@@ -1,6 +1,6 @@
 Package: rrundocker
 Title: An R-first API to run Docker Containers
-Version: 0.0.0.1
+Version: 0.0.1
 Authors@R: 
     person("Eliseo", "Martelli", , "repbio@eliseomartelli.it",
 	role = c("aut", "cre"))
