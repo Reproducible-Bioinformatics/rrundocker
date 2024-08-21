@@ -22,7 +22,8 @@ run_in_docker <- function(image_name,
   for (argument in additional_arguments) {
     base_command <- paste(base_command, argument)
   }
-  system2("docker", args = base_command, stdout = TRUE, stderr = TRUE)
+  # Using an empty string to output to R's console according to documentation.
+  system2("docker", args = base_command, stdout = "", stderr = "")
 }
 
 #' Check if the script is running in a container.
