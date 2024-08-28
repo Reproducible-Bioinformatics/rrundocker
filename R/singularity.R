@@ -25,3 +25,18 @@ has_singularity <- function() {
   path <- Sys.which("singularity")
   return(list(found = nzchar(path), path = path))
 }
+
+#' Check if the script is running in a container.
+#'
+#' @returns A truthy value indicating the state.
+#' @export
+is_running_in_singularity <- function() {
+  cgroup_exists <- file.exists("/proc/1/cgroup")
+  in_container_runtime <- FALSE
+  if (cgroup_exists) {
+    in_container_runtime <- any(
+      grepl("singularity", readLines("/proc/1/cgroup", warn = FALSE))
+    )
+  }
+  return(in_container_runtime)
+}
