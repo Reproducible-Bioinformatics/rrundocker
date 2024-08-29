@@ -23,7 +23,7 @@
 #' @export
 has_singularity <- function() {
   path <- Sys.which("singularity")
-  return(list(found = nzchar(path), path = path))
+  return(list(found = nzchar(path), path = path, fn = run_in_singularity))
 }
 
 #' Check if the script is running in a container.
@@ -39,4 +39,16 @@ is_running_in_singularity <- function() {
     )
   }
   return(in_container_runtime)
+}
+
+#' Run a singularity container.
+#'
+#' @param image_name The singularity image you want to run.
+#' @param volumes The list of volumes to mount to the container.
+#' @param additional_arguments Vector of arguments to pass to the container.
+#'
+#' @export
+run_in_singularity <- function(image_name,
+                               volumes = list(),
+                               additional_arguments = c()) {
 }
