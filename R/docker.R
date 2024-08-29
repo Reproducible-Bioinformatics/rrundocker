@@ -20,7 +20,7 @@
 #' }
 has_docker <- function() {
   path <- Sys.which("docker")
-  return(list(found = nzchar(path), path = path))
+  return(list(found = nzchar(path), path = path, fn = run_in_docker))
 }
 
 #' Check if the script is running in Docker.
