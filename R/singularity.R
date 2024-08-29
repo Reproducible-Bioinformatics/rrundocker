@@ -51,4 +51,24 @@ is_running_in_singularity <- function() {
 run_in_singularity <- function(image_name,
                                volumes = list(),
                                additional_arguments = c()) {
+  build_mapping <- function(volume) {
+    volume[1] <- normalizepath::normalize_path(volume[1])
+    return(paste(
+      volume[1],
+      volume[2],
+      sep = ":"
+    ))
+  }
+  base_command <- "run"
+  if (length(volumes) > 0) {
+    base_command <- paste(base_command, "--bind", build_mapping(volumes[[1]]))
+  }
+  for (volume in volumes[-1]) {
+    base_command <- paste(base_command, build_mapping(volume), sep = ",")
+  }
+  base_command <- paste(base_command, image_name)
+  for (argument in additional_arguments) {
+    base_command <- paste(base_command, argument)
+  }
+  system2("singularity", args = base_command, stdout = "", stderr = "")
 }
