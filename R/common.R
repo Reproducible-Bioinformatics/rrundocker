@@ -34,3 +34,31 @@ detect_container_runtime <- function() {
   }
   return(list(name = "None", is_running = FALSE))
 }
+
+#' Run a container.
+#'
+#' @param image_name The image you want to run.
+#' @param volumes The list of volumes to mount to the container.
+#' @param additional_arguments Vector of arguments to pass to the container.
+#'
+#' @export
+run_in_container <- function(image_name,
+                             volumes = list(),
+                             additional_arguments = c()) {
+  source("docker.R")
+  source("singularity.R")
+
+  detection_map <- list(
+    Docker = has_docker(),
+    Singularity = has_singularity()
+  )
+
+  filtered_providers <- Filter(function(x) x$found, detection_map)
+  if (length(filtered_providers) < 1) {
+    return
+  }
+  first_found_name <- names(filtered_providers)[1]
+  first_found_fn <- filtered_providers[[first_found_name]]$fn
+
+  first_found_fn(image_name, volumes, additional_arguments)
+}
