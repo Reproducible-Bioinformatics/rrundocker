@@ -18,6 +18,8 @@
 #' } else {
 #'   cat("Docker is not available.\n")
 #' }
+#'
+#' @export
 has_docker <- function() {
   path <- Sys.which("docker")
   return(list(found = nzchar(path), path = path, fn = run_in_docker))
