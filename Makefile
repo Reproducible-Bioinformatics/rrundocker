@@ -3,7 +3,7 @@ default: build
 .PHONY: document test clean check build clean 
 
 PKG_NAME := rrundocker
-PKG_VERS := 0.0.2
+PKG_VERS := 0.0.3
 PKG_TAR := $(PKG_NAME)_$(PKG_VERS).tar.gz
 
 R := R
