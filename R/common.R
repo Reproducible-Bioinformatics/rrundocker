@@ -20,9 +20,6 @@
 #'
 #' @export
 detect_container_runtime <- function() {
-  source("docker.R")
-  source("singularity.R")
-
   detection_map <- list(
     Docker = is_running_in_docker,
     Singularity = is_running_in_singularity
@@ -45,9 +42,6 @@ detect_container_runtime <- function() {
 run_in_container <- function(image_name,
                              volumes = list(),
                              additional_arguments = c()) {
-  source("docker.R")
-  source("singularity.R")
-
   detection_map <- list(
     Docker = has_docker(),
     Singularity = has_singularity()
